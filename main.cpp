@@ -9,7 +9,7 @@
 
 #include <iostream>
 #include <stdio.h>
-
+#include <stdlib.h>
 #include "Slav.h"
 
 #define REPORT_ADAPTERS showMeAdapterSizes(queueOfSlavs,stackOfSlavs)
@@ -48,6 +48,7 @@ void containers(Slav * slavs, int n)
 	printf("## vector\n");
 
 	// Umieść Słowian w losowej kolejności w wektorze.
+	
 
 	// Wykorzystując iterator i funkcję description(), wyświetl wszystkich Słowian w wektorze
 
