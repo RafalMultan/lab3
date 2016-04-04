@@ -23,6 +23,7 @@ void showMeAdapterSizes(queue <Slav *>, stack <Slav *>);
 
 void containers(Slav *, int);
 void adapters(Slav *, int);
+void sortbysex(Slav*,int n);
 
 int main(int argc, char const *argv[])
 {
@@ -34,6 +35,7 @@ int main(int argc, char const *argv[])
 
 	containers(slavs, n);
 	adapters(slavs, n);
+	sortbysex(slavs,n);
 
 	delete [] slavs;
 }
@@ -76,8 +78,8 @@ void containers(Slav * slavs, int n)
 	map<Slav*,Slav*>::iterator it_map;
 	set<Slav*>::iterator it_set=setOfSlavs.begin();
 	set<Slav*>::iterator it_set_delete=setOfSlavs.begin();
-	while(it_set!=setOfSlavs.end())//ten sprytny sposob nie moj,ale dobry programista to 
-	{															//leniwy programista
+	while(it_set!=setOfSlavs.end())//ten sprytny sposob nie moj,ale dobry programista to leniwy programista 
+	{															
 		mapOfSlavs[*it_set++]=*it_set++;//diabel tkwi w inkrementacji po wykonaniu operacji
 		setOfSlavs.erase(it_set_delete++);
 		setOfSlavs.erase(it_set_delete++);
@@ -142,4 +144,24 @@ void showMeAdapterSizes(queue <Slav *> queue, stack <Slav *> stack)
 		stack.size(),
 		Slav::counter());
 
+}
+void sortbysex(Slav *slavs,int n)
+{
+	map<sex,vector<Slav*>> mapBySex;
+	for(int i=0;i<n;i++)
+		
+		if(slavs[i]._sex()==male)
+			mapBySex[male].push_back(slavs+i);
+		else mapBySex[female].push_back(slavs+i);
+	vector<Slav*>::iterator itBySex;
+	int sexcounter=0;
+	cout<<"Men"<<endl;
+	for(itBySex=mapBySex[male].begin();itBySex!=mapBySex[male].end();itBySex++,sexcounter++)
+		cout<<(*itBySex)->description()<<endl;
+		if(!sexcounter)cout<<"nie ma mezczyzn"<<endl;
+		sexcounter=0;
+		cout<<"Women"<<endl;
+	for(itBySex=mapBySex[female].begin();itBySex!=mapBySex[female].end();itBySex++,sexcounter++)
+		cout<<(*itBySex)->description()<<endl;
+		if(!sexcounter)cout<<"nie ma kobiet"<<endl;
 }
