@@ -71,10 +71,22 @@ void containers(Slav * slavs, int n)
 	
 	REPORT_CONTAINERS;
 	printf("## map\n");
-
 	// Stwórz słownik tworzący pary Słowian, z tych znajdujących się w zbiorze, czyszcząc zbiór
 	
+	map<Slav*,Slav*>::iterator it_map;
+	set<Slav*>::iterator it_set=setOfSlavs.begin();
+	set<Slav*>::iterator it_set_delete=setOfSlavs.begin();
+	while(it_set!=setOfSlavs.end())//ten sprytny sposob nie moj,ale dobry programista to 
+	{															//leniwy programista
+		mapOfSlavs[*it_set++]=*it_set++;//diabel tkwi w inkrementacji po wykonaniu operacji
+		setOfSlavs.erase(it_set_delete++);
+		setOfSlavs.erase(it_set_delete++);
+
+	}
+	
 	// Wykorzystując iterator, wyświetl wszystkie pary Słowian
+	for(it_map=mapOfSlavs.begin();it_map!=mapOfSlavs.end();it_map++)
+		cout<<(*it_map).first->description()<<" "<<(*it_map).second->description()<<endl;
 	
 	REPORT_CONTAINERS;
 }
@@ -90,15 +102,27 @@ void adapters(Slav * slavs, int n)
 
 	// Umieść Słowian w kolejce.
 	
+	for(int i=0;i<n;i++)
+		queueOfSlavs.push(slavs+i);
+	
 	REPORT_ADAPTERS;
 
 	printf("## stack\n");
 	// Przenieś Słowian z kolejki do stosu.
+	for(int i=0;i<n;i++)
+	{
+		stackOfSlavs.push(queueOfSlavs.front());
+		queueOfSlavs.pop();
+	}
 
 	REPORT_ADAPTERS;
 
 	// Wyświetl Słowian zdejmowanych ze stosu.
-
+	for(int i=0;i<n;i++)
+	{
+		cout<<(*stackOfSlavs.top()).description()<<endl;;
+		stackOfSlavs.pop();
+	}
 	REPORT_ADAPTERS;
 }
 
