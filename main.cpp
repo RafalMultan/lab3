@@ -6,7 +6,8 @@
 // Adaptery
 #include <queue>	// Kolejka
 #include <stack>	// Stos
-
+#include <ctime>
+#include <cstdlib>
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -46,15 +47,26 @@ void containers(Slav * slavs, int n)
 	printf("# Containers\n");
 	REPORT_CONTAINERS;
 	printf("## vector\n");
-
+	vectorOfSlavs.push_back(NULL);
 	// Umieść Słowian w losowej kolejności w wektorze.
-	
-
+	srand(time(NULL));
+	for(int i=0;i<n;i++)	
+	{
+		int position=rand()%vectorOfSlavs.size();
+		vectorOfSlavs.insert(vectorOfSlavs.begin()+position,slavs+i);
+	}
+	vectorOfSlavs.pop_back();
 	// Wykorzystując iterator i funkcję description(), wyświetl wszystkich Słowian w wektorze
-
+	vector<Slav*>::iterator it_vec;
+	for(it_vec=vectorOfSlavs.begin();it_vec!=vectorOfSlavs.end();it_vec++)
+		cout<<(*it_vec)->description()<<endl;
 	REPORT_CONTAINERS;
 	printf("## set\n");
-
+	for(int i=0;i<n;i++)
+		{
+			setOfSlavs.insert(vectorOfSlavs[i]);
+			vectorOfSlavs.pop_back();
+		}
 	// Przenieś wszystkich Słowian z wektoru do zbioru.
 	
 	REPORT_CONTAINERS;
